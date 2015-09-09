@@ -16,7 +16,7 @@ D3.js
 
 
 # Use Cases
-![alt text] (/agstat_use_case_1.pdf "Use Case 1")
+![alt text] (agstat_use_case_1.pdf "Use Case 1")
 
 # Wireframes
 
