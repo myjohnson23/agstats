@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(require('node-sass-middleware')({
   src: path.join(__dirname, 'public'),
@@ -30,6 +30,44 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+
+// Temp Data for Testing
+var tempData = {
+  "name": "temp",
+  "title": "you know it"
+}
+
+// RESTful API
+app.get('/api', function(req, res) {
+  res.send(tempData);
+  res.end;
+});
+
+app.get('/api/:id', function(req, res) {
+  res.send("get by id");
+  res.end
+});
+
+app.post('/api', function(req, res) {
+  res.send("post");
+  res.end
+});
+
+app.put('/api/:id', function(req, res) {
+  res.send("put");
+  res.end
+});
+
+app.patch('/api/:id', function(req, res) {
+  res.send("patch");
+  res.end
+});
+
+app.delete('/api/:id', function(req, res) {
+  res.send("delete");
+  res.end
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
