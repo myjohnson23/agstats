@@ -104,5 +104,11 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     paranoid: true,
     freezeTableName: true
-  });
+  },
+  {
+    associate: function(models) {
+    Master.hasMany(models.Batting, {foreignKey: {fieldName: 'playerID'}});
+    }
+  }
+);
 };

@@ -5,7 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     playerID: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: ''
+      defaultValue: '',
+      primaryKey: true
     },
     yearID: {
       type: DataTypes.INTEGER(11),
@@ -101,5 +102,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true,
     }
-  });
+  },
+  {
+    timestamps: false,
+    paranoid: true,
+    freezeTableName: true
+  },
+  {
+    associate: function(models) {
+      Batting.belongsTo(models.Master, {foreignKey: {fieldName: 'playerID'}});
+    }
+  }
+  );
 };

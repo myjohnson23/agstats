@@ -1,11 +1,12 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Pitching', { 
+  return sequelize.define('Pitching', {
     playerID: {
       type: DataTypes.STRING,
       allowNull: false,
-      defaultValue: ''
+      defaultValue: '',
+      primaryKey: true
     },
     yearID: {
       type: DataTypes.INTEGER(11),
@@ -125,5 +126,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER(11),
       allowNull: true,
     }
+  },
+  {
+    timestamps: false,
+    paranoid: true,
+    freezeTableName: true
   });
 };

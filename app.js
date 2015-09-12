@@ -22,6 +22,8 @@ app.set('view engine', 'ejs');
 var models = require('./models');
 models.sequelize.sync();
 
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -39,20 +41,32 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', controllers);
 
 // Temp Data for Testing
-var tempData = {
-  "name": "temp",
-  "title": "you know it"
-}
+// var tempData = {
+//   "name": "temp",
+//   "title": "you know it"
+// }
 
-// API
+// API Commented out for testing
+// app.get('/api', function(req, res) {
+//   var masters = models.Batting.findAll().then(function(masters) {
+//     // JSON.stringify(masters);
+//     res.json(masters);
+//     res.end;
+//   });
+// });
+
+// TEST API CALL
 app.get('/api', function(req, res) {
-  var masters = models.Master.findAll().then(function(masters) {
+  var testData = models.Batting.findAll({
+    include: [{
+      model: models.Master,
+      where: { playerID: "abadj101"}
+    }]
+  }).then(function(masters) {
     // JSON.stringify(masters);
     res.json(masters);
     res.end;
   });
-
-
 });
 
 app.get('/api/:id', function(req, res) {
