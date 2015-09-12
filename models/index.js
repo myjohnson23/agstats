@@ -24,13 +24,27 @@ fs.readdirSync(__dirname).filter(function(file) {
 }).forEach(function(file) {
  var model = sequelize["import"](path.join(__dirname, file));
  db[model.name] = model;
-});
-
-Object.keys(db).forEach(function(modelName) {
- if ("associate" in db[modelName]) {
- db[modelName].associate(db);
+ console.log("This is the beginning------------------------");
+ console.log(model.attributes);
+ console.log("This is the end-------------------------------")
+ if ("associate" in model) {
+   console.log("This is the beginning------------------------");
+   console.log(model);
+   console.log("This is the end-------------------------------")
+ model.associate(model);
  }
 });
+
+// Object.keys(db).forEach(function(modelName) {
+//  if ("associate" in db[modelName]) {
+//  console.log(db[modelName]);
+//  db[modelName].associate(db);
+//  }
+// });
+
+console.log(db);
+
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

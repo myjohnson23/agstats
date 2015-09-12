@@ -47,27 +47,29 @@ app.use('/', controllers);
 // }
 
 // API Commented out for testing
-// app.get('/api', function(req, res) {
-//   var masters = models.Batting.findAll().then(function(masters) {
-//     // JSON.stringify(masters);
-//     res.json(masters);
-//     res.end;
-//   });
-// });
-
-// TEST API CALL
 app.get('/api', function(req, res) {
-  var testData = models.Batting.findAll({
-    include: [{
-      model: models.Master,
-      where: { playerID: "abadj101"}
-    }]
-  }).then(function(masters) {
+  models.Batting.hasOne(models.Master, {foreignKey : 'playerID'});
+  models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
+  var masters = models.Batting.findAll().then(function(masters) {
     // JSON.stringify(masters);
     res.json(masters);
     res.end;
   });
 });
+
+// TEST API CALL
+// app.get('/api', function(req, res) {
+//   var testData = models.Batting.findAll({
+//     include: [{
+//       model: models.Master,
+//       where: { playerID: "abadj101"}
+//     }]
+//   }).then(function(masters) {
+//     // JSON.stringify(masters);
+//     res.json(masters);
+//     res.end;
+//   });
+// });
 
 app.get('/api/:id', function(req, res) {
   var master = models.Master.findById();

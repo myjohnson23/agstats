@@ -107,11 +107,15 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false,
     paranoid: true,
     freezeTableName: true
-  },
-  {
-    associate: function(models) {
-      Batting.belongsTo(models.Master, {foreignKey: {fieldName: 'playerID'}});
-    }
-  }
-  );
-};
+  });
+}//,
+// {
+//   classMethods: {
+//   associate: function() {
+//     Batting.belongsTo(models.Master, {foreignKey: {fieldName: 'playerID'}});
+//   }
+// },
+//}
+;
+
+// models.Batting.belongsTo(models.Master, {foreignKey: {fieldName: 'playerID'}});
