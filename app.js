@@ -4,15 +4,23 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// var Sequelize = require('sequelize');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var controllers = require('./controllers/index');
 
 var app = express();
+
+// MySQL Database connection
+// var sequelize = new Sequelize('mysql://localhost:3307/lahman_baseball_stats', 'username=baseball', 'password=baseball123');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// model setup
+// var models = require('sequelize-import')('./models');
+var models = require('./models');
+models.sequelize.sync();
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,8 +36,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', controllers);
 
 // Temp Data for Testing
 var tempData = {
@@ -37,37 +44,18 @@ var tempData = {
   "title": "you know it"
 }
 
-// RESTful API
+// API
 app.get('/api', function(req, res) {
-  res.send(tempData);
+  var masters = models.Master.findById('aardsda01');
+  res.json(masters);
   res.end;
 });
 
 app.get('/api/:id', function(req, res) {
+  var master = models.Master.findById();
   res.send("get by id");
   res.end
 });
-
-app.post('/api', function(req, res) {
-  res.send("post");
-  res.end
-});
-
-app.put('/api/:id', function(req, res) {
-  res.send("put");
-  res.end
-});
-
-app.patch('/api/:id', function(req, res) {
-  res.send("patch");
-  res.end
-});
-
-app.delete('/api/:id', function(req, res) {
-  res.send("delete");
-  res.end
-});
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
