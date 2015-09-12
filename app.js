@@ -46,9 +46,13 @@ var tempData = {
 
 // API
 app.get('/api', function(req, res) {
-  var masters = models.Master.findById('aardsda01');
-  res.json(masters);
-  res.end;
+  var masters = models.Master.findAll().then(function(masters) {
+    // JSON.stringify(masters);
+    res.json(masters);
+    res.end;
+  });
+
+
 });
 
 app.get('/api/:id', function(req, res) {
