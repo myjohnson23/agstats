@@ -59,23 +59,21 @@ app.get('/api', function(req, res) {
 
 // TEST API CALL
 // app.get('/api', function(req, res) {
-//   var testData = models.Batting.findAll({
-//     include: [{
-//       model: models.Master,
-//       where: { playerID: "abadj101"}
-//     }]
+//   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
+//   models.Batting.hasOne(models.Master, {foreignKey : 'playerID'});
+//   var masters = models.Batting.findAll({
+//       where: { playerID: "abadfe01"}
 //   }).then(function(masters) {
-//     // JSON.stringify(masters);
 //     res.json(masters);
 //     res.end;
 //   });
 // });
 
-app.get('/api/:id', function(req, res) {
-  var master = models.Master.findById();
-  res.send("get by id");
-  res.end
-});
+// app.get('/api/:id', function(req, res) {
+//   var master = models.Master.findById();
+//   res.send("get by id");
+//   res.end
+// });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
