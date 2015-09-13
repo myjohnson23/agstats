@@ -4,14 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var Sequelize = require('sequelize');
 
 var controllers = require('./controllers/index');
 
 var app = express();
-
-// MySQL Database connection
-// var sequelize = new Sequelize('mysql://localhost:3307/lahman_baseball_stats', 'username=baseball', 'password=baseball123');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
