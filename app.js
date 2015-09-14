@@ -46,7 +46,14 @@ app.use('/', controllers);
 app.get('/api', function(req, res) {
   models.Batting.hasOne(models.Master, {foreignKey : 'playerID'});
   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
-  var masters = models.Batting.findAll().then(function(masters) {
+  var masters = models.Batting.findAll({
+    where: {
+        HR: { $gt: 10 },
+        yearID: 2014
+      }
+    }
+
+  ).then(function(masters) {
     // JSON.stringify(masters);
     res.json(masters);
     res.end;

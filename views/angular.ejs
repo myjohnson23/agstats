@@ -4,16 +4,57 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/d3.js"></script>
     <script type="text/javascript" src="/javascripts/angular.js"></script>
     <script type="text/javascript" src="/javascripts/angular-app.js"></script>
+    <style media="screen">
+    .chart {
+  background: #eee;
+  padding: 3px;
+}
+
+.chart div {
+width: 0;
+transition: all 1s ease-out;
+-moz-transition: all 1s ease-out;
+-webkit-transition: all 1s ease-out;
+}
+
+.chart div {
+font: 10px sans-serif;
+background-color: steelblue;
+text-align: right;
+padding: 3px;
+margin: 5px;
+color: white;
+box-shadow: 2px 2px 2px #666;
+}
+    </style>
   </head>
   <body ng-app="agStats">
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+
     <div ng-controller="agStatsCtrl">
-      <ul>
-        <li ng-repeat="player in players">{{player.playerID}}</li>
-      </ul>
+      <bars-chart chart-data="players"></bars-chart>
+      <table>
+        <thead>
+          <tr>
+              <th>Player Name</th>
+              <th>Homeruns</th>
+              <th>Hits</th>
+              <th>RBI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="player in players | orderBy: 'HR'">
+              <td>{{player.playerID}}</td>
+              <td>{{player.HR}}</td>
+              <td>{{player.H}}</td>
+              <td>{{player.RBI}}</td>
+          </tr>
+          </tbody>
+      </table>
     </div>
   </body>
 </html>
