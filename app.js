@@ -49,8 +49,8 @@ app.get('/api', function(req, res, next) {
   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
   var masters = models.Batting.findAll({
     where: {
-        HR: { $gt: 10 },
-        yearID: 2014
+        HR: { $gt: 10 } // add comma back ,
+        // yearID: 2014
       }
     }
 
