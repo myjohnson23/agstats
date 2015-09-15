@@ -9,6 +9,7 @@ var controllers = require('./controllers/index');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -43,7 +44,7 @@ app.use('/', controllers);
 // }
 
 // API Commented out for testing
-app.get('/api', function(req, res) {
+app.get('/api', function(req, res, next) {
   models.Batting.hasOne(models.Master, {foreignKey : 'playerID'});
   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
   var masters = models.Batting.findAll({
