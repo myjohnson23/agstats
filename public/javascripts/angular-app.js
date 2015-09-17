@@ -1,28 +1,62 @@
 // Init App
-angular.module('agStats', []);
+var app = angular.module('agStats', []);
+
+// angular.module('routingApp', ['angular-route']);
+// // angular.module('routingApp', ['ngRoute']);
+//
+// // Route Configuration
+// angular.module('routingApp').config(function ($routeProvider, $locationProvider) {
+//
+//   $routeProvider
+//     .when('/', {
+//       render: 'angular',
+//       redirectTo: '/angular'
+//       //
+//       // templateUrl: 'angular-batting.ejs',
+//       // controller: 'agStatsController'
+//     })
+//     .when('/angular', {
+//       templateUrl: 'angular-index.ejs',
+//       controller: 'agStatsController'
+//     })
+//     .when('/angular/batting', {
+//       templateUrl: 'batting.ejs',
+//       controller: 'agStatsController'
+//     })
+//     .otherwise({
+//       // redirectTo: '/angular'
+//       redirectTo: '/'
+//     });
+//
+//   $locationProvider.html5Mode(true);
+// });
+//
+// angular.module('routingApp').run(['$location',functionAppRun($location) {}]);
+
 
 // The factory
-angular.module('agStats').factory('d3', function() {
+app.factory('d3', function() {
       return d3;
     });
 
-angular.module('agStats').factory('SimpleHttpLoader', ["$http", function($http) {
+app.factory('SimpleHttpLoader', ["$http", function($http) {
       return function(url) {
         return $http.get(url);
       }
     }]);
 
 // Controller
-angular.module('agStats').controller('agStatsCtrl', ["$scope", "d3", "SimpleHttpLoader", function($scope, d3, SimpleHttpLoader) {
+app.controller('agStatsController', ["$scope", "d3", "SimpleHttpLoader", function($scope, d3, SimpleHttpLoader) {
     $scope.sortType = 'HR'; // default sort type
     $scope.sortReverse = true; // default sort order
-    $scope.searchFish = '';   // default search/filter term
+    $scope.searchFilter = '';   // default search/filter term
     $scope.players = {
       src: '/api',
       data: []
     };
+
     SimpleHttpLoader($scope.players.src).then(function(response) {
-      $scope.players.data = response.data;
+      $scope.players.data = response.data.slice(0,11);
       // console.log($scope.players);
       //This below is how I was able to access the data
       // console.log($scope.players.data[0].HR);
@@ -31,7 +65,7 @@ angular.module('agStats').controller('agStatsCtrl', ["$scope", "d3", "SimpleHttp
 
 // Directives
 // myScatterChart
-angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
+app.directive('myScatterChart', [ "d3", "$window", function(d3, $window, data) {
 
       function draw(svg, width, height, data) {
         // console.log('first');
@@ -40,18 +74,10 @@ angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
          .attr('width', width)
          .attr('height', height);
 
-        //  console.log("inside-draw");
-        //  console.log(data.length);
-        //  for (var i = 0; i < data.length; i++) {
-        //    for(var ind in data[i]) {
-        //       console.log(ind);
-        //       for(var vals in data[i][ind]) {
-        //         console.log(vals, data[i][ind][vals]);
-        //       }
-        //    }
-        //   };
+
        // Define a margin
        var margin = 30;
+
 
        // Define x scale
        var xScale = d3.scale.linear()
@@ -62,7 +88,7 @@ angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
        var xAxis = d3.svg.axis()
          .scale(xScale)
          .orient('top');
-        //  .tickFormat(d3.time.format('%S'));
+
 
        // Define y-scale
        var yScale = d3.scale.linear()
@@ -73,7 +99,7 @@ angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
        var yAxis = d3.svg.axis()
          .scale(yScale)
          .orient('left');
-        //  .tickFormat(d3.format('f'));
+
 
        // Draw the x-axis
        svg.select('.x-axis')
@@ -96,19 +122,26 @@ angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
          .selectAll('circle').data(data)
          .attr('r', function(d) { return d.HR; })
          .attr('cx', function(d) { return xScale(d.HR); })
-         .attr('cy', function(d) { return yScale(d.AB); });
+         .attr('cy', function(d) { return yScale(d.AB); })
+         .attr('fill', c20);
+
      }
       return {
-        restrict: 'EA',
+        restrict: 'E',
+        scope: true,
 
-        compile: function( element, attrs, transclude ) {
+        compile: function( element, attrs, transclude) {
           var svg  = d3.select(element[0]).append('svg');
-          svg.append('g').attr('class', 'data');
-          svg.append('g').attr('class', 'x-axis axis');
-          svg.append('g').attr('class', 'y-axis axis');
+            svg.style('width', '100%');
+            svg.append('g').attr('class', 'data');
+            svg.append('g').attr('class', 'x-axis axis');
+            svg.append('g').attr('class', 'y-axis axis');
 
-          var width = 1200, height = 500;
+            $window.onresize = function() {
+            };
 
+          var height = 500;
+          var width = $window.innerWidth;
           return function(scope, element, attrs) {
 
             scope.$watch(function(scope) {
@@ -121,13 +154,35 @@ angular.module('agStats').directive('myScatterChart', ["d3", function(d3) {
               }
 
             }, true);
+
+            // scope.render = function(scope.players.data) {
+            //   svg.selectAll('*').remove();
+            //
+            //   if(!scope.players.data) return;
+            //
+            //   var width = d3.select(element[0].node().offsetWidth -margin,
+            //     height = scope.players.data.length * ()
+            //     )
+            // }
+
+            // scope.$watch('scope.players.data', function(newVals, oldVals) {
+            //   console.log("watch new and old");
+            //   return draw(newVals);
+            // }, false);
+
+            // console.log(scope.players.data);
+            scope.$watch(function() {
+              return width = $window.innerWidth;
+            }, function() {
+                draw(svg, width, height, scope.players.data);
+            }, true);
           };
         }
       }
     }])
 
 // myBarChart
-angular.module('agStats').directive('myBarChart', ["d3", function(d3) {
+app.directive('myBarChart', ["d3", "$window", function(d3, $window, data) {
 
         function draw(svg, width, height, data) {
 
@@ -138,9 +193,13 @@ angular.module('agStats').directive('myBarChart', ["d3", function(d3) {
           // Define a margin
           var margin = 30;
 
-          // Define x scale
+          // // Define x scale
+          // var xScale = d3.scale.linear()
+          //   .domain(d3.extent(data, function(d) { return d.HR; }))
+          //   .range([margin, width-margin]);
+
           var xScale = d3.scale.linear()
-            .domain(d3.extent(data, function(d) { return d.HR; }))
+            .domain([10, d3.max(data, function(d) { return d.HR; })])
             .range([margin, width-margin]);
 
           // Define x-axis
@@ -227,7 +286,7 @@ angular.module('agStats').directive('myBarChart', ["d3", function(d3) {
 
             // Create a SVG root element
             var svg = d3.select(element[0]).append('svg');
-
+            svg.style('width', '100%');
             /* Create container */
             var axis_container = svg.append('g').attr('class', 'axis');
             var data_container = svg.append('g').attr('class', 'data');
@@ -242,8 +301,9 @@ angular.module('agStats').directive('myBarChart', ["d3", function(d3) {
             data_container.append('path').attr('class', 'data-area');
 
             // Define the dimensions for the chart
-            var width = 800, height = 300;
-
+            // var width = 960, height = 500;
+            var height = 500;
+            var width = $window.innerWidth;
             // Return the link function
             return function(scope, element, attrs) {
 
@@ -259,7 +319,17 @@ angular.module('agStats').directive('myBarChart', ["d3", function(d3) {
                   draw(svg, width, height, scope.players.data);
                 }
               }, true);
+              scope.$watch(function(scope) {
+                return width = $window.innerWidth;
+              }, function() {
+                  draw(svg, width, height, scope.players.data);
+              }, true);
             };
           }
         };
-    }])
+    }]);
+
+var c10 = d3.scale.category10();
+var c20 = d3.scale.category20();
+var c20b = d3.scale.category20b();
+var c20c = d3.scale.category20c();

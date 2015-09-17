@@ -35,6 +35,7 @@ app.use(require('node-sass-middleware')({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', controllers);
 
 // Temp Data for Testing
@@ -49,11 +50,10 @@ app.get('/api', function(req, res, next) {
   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
   var masters = models.Batting.findAll({
     where: {
-        HR: { $gt: 10 } // add comma back ,
-        // yearID: 2014
+        HR: { $gt: 10 },
+        yearID: 2014
       }
     }
-
   ).then(function(masters) {
     // JSON.stringify(masters);
     res.json(masters);

@@ -1,62 +1,161 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
-    <link rel="stylesheet" href="/stylesheets/bootstrap.css.map">
-    <link rel="stylesheet" href="/stylesheets/style.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
-    <script type="text/javascript" src="/javascripts/d3/d3.js" charset="UTF-8"></script>
-    <script type="text/javascript" src="/javascripts/angular/angular.js"></script>
-    <script type="text/javascript" src="/javascripts/angular-app.js"></script>
-    <script type="text/javascript" src="/javascripts/chart.js"></script>
-  </head>
-  <body class="container" ng-app="agStats">
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+
     <div ng-controller="agStatsCtrl">
       <my-scatter-chart class="chart"></my-scatter-chart>
       <my-bar-chart class="chart"></my-bar-chart>
       <div class="alert alert-info">
+        ANGULAR.EJS FILE
         <p>Sort Type: {{ sortType }}</p>
         <p>Sort Reverse: {{ sortReverse }}</p>
         <p>Search Query: {{ sortPlayerName }}</p>
       </div>
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+            <input type="text" class="form-control" placeholder="Search the players" ng-model="sortPlayerName">
+          </div>
+        </div>
+      </form>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
-              <th><a href="#" ng-click="sortType = 'playerID'; sortReverse = !sortReverse">
-                Player Name
-                <span ng-show="sortType == 'playerID' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'playerID' && sortReverse" class="fa fa-caret-up"></span>
-              </a></th>
+            <th><a href="#" ng-click="sortType = 'playerID'; sortReverse = !sortReverse">
+               Name
+              <span ng-show="sortType == 'playerID' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'playerID' && sortReverse" class="fa fa-caret-up"></span>
+            </a></th>
+            <th><a href="#" ng-click="sortType = 'yearID'; sortReverse = !sortReverse">
+                YR
+              <span ng-show="sortType == 'yearID' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'yearID' && sortReverse" class="fa fa-caret-up"></span>
+            </a></th>
+            <th><a href="#" ng-click="sortType = 'lgID'; sortReverse = !sortReverse">
+                LEA
+              <span ng-show="sortType == 'lgID' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'lgID' && sortReverse" class="fa fa-caret-up"></span>
+            </a></th>
+            <th><a href="#" ng-click="sortType = 'teamID'; sortReverse = !sortReverse">
+              TEAM
+              <span ng-show="sortType == 'teamID' && !sortReverse" class="fa fa-caret-down"></span>
+              <span ng-show="sortType == 'teamID' && sortReverse" class="fa fa-caret-up"></span>
+            </a></th>
               <th><a href="#" ng-click="sortType = 'HR'; sortReverse = !sortReverse">
-                Homeruns
+                HR
                 <span ng-show="sortType == 'HR' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'HR' && sortReverse" class="fa fa-caret-up"></span>
-              </a></th>
-              <th><a href="#" ng-click="sortType = 'H'; sortReverse = !sortReverse">
-                Hits
-                <span ng-show="sortType == 'H' && !sortReverse" class="fa fa-caret-down"></span>
-                <span ng-show="sortType == 'H' && sortReverse" class="fa fa-caret-up"></span>
               </a></th>
               <th><a href="#" ng-click="sortType = 'RBI'; sortReverse = !sortReverse">
                 RBI
                 <span ng-show="sortType == 'RBI' && !sortReverse" class="fa fa-caret-down"></span>
                 <span ng-show="sortType == 'RBI' && sortReverse" class="fa fa-caret-up"></span>
               </a></th>
+              <th><a href="#" ng-click="sortType = 'H'; sortReverse = !sortReverse">
+                H
+                <span ng-show="sortType == 'H' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'H' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'DOUBLE'; sortReverse = !sortReverse">
+                2B
+                <span ng-show="sortType == 'DOUBLE' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'DOUBLE' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'TRIPLE'; sortReverse = !sortReverse">
+                3B
+                <span ng-show="sortType == 'TRIPLE' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'TRIPLE' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'R'; sortReverse = !sortReverse">
+                R
+                <span ng-show="sortType == 'R' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'R' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'BB'; sortReverse = !sortReverse">
+                BB
+                <span ng-show="sortType == 'BB' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'BB' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'G'; sortReverse = !sortReverse">
+                G
+                <span ng-show="sortType == 'G' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'G' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'AB'; sortReverse = !sortReverse">
+                AB
+                <span ng-show="sortType == 'AB' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'AB' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'SB'; sortReverse = !sortReverse">
+                SB
+                <span ng-show="sortType == 'SB' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'SB' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'CS'; sortReverse = !sortReverse">
+                CS
+                <span ng-show="sortType == 'CS' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'CS' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'SO'; sortReverse = !sortReverse">
+                SO
+                <span ng-show="sortType == 'SO' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'SO' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'IBB'; sortReverse = !sortReverse">
+                IBB
+                <span ng-show="sortType == 'IBB' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'IBB' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'HBP'; sortReverse = !sortReverse">
+                HBP
+                <span ng-show="sortType == 'HBP' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'HBP' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'SH'; sortReverse = !sortReverse">
+                SH
+                <span ng-show="sortType == 'SH' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'SH' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'SF'; sortReverse = !sortReverse">
+                SF
+                <span ng-show="sortType == 'SF' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'SF' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'GIDP'; sortReverse = !sortReverse">
+                GIDP
+                <span ng-show="sortType == 'GIDP' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'GIDP' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
+              <th><a href="#" ng-click="sortType = 'stint'; sortReverse = !sortReverse">
+                stint
+                <span ng-show="sortType == 'stint' && !sortReverse" class="fa fa-caret-down"></span>
+                <span ng-show="sortType == 'stint' && sortReverse" class="fa fa-caret-up"></span>
+              </a></th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="player in players.data | orderBy:sortType:sortReverse">
+          <tr ng-repeat="player in players.data | orderBy:sortType:sortReverse | filter:sortPlayerName" ng-model="players">
               <td>{{player.playerID}}</td>
+              <td>{{player.yearID}}</td>
+              <td>{{player.lgID}}</td>
+              <td>{{player.teamID}}</td>
               <td>{{player.HR}}</td>
-              <td>{{player.H}}</td>
               <td>{{player.RBI}}</td>
+              <td>{{player.H}}</td>
+              <td>{{player.DOUBLE}}</td>
+              <td>{{player.TRIPLE}}</td>
+              <td>{{player.R}}</td>
+              <td>{{player.BB}}</td>
+              <td>{{player.G}}</td>
+              <td>{{player.AB}}</td>
+              <td>{{player.SB}}</td>
+              <td>{{player.CS}}</td>
+              <td>{{player.SO}}</td>
+              <td>{{player.IBB}}</td>
+              <td>{{player.HBP}}</td>
+              <td>{{player.SH}}</td>
+              <td>{{player.SF}}</td>
+              <td>{{player.GIDP}}</td>
+              <td>{{player.stint}}</td>
           </tr>
           </tbody>
       </table>
     </div>
-  </body>
-</html>
