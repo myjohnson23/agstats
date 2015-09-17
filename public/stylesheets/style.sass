@@ -1,6 +1,46 @@
-body
-  padding: 50px
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif
+@import global_variables
+*
+  padding: 0 !important
 
-a
-  color: #00B7FF
+header
+  width: 100%
+  height: 60rem
+  margin: 0
+  padding: 0
+  background-color: $blue
+
+body
+  background-color: $silver
+  color: $black
+
+h1
+  font-size: 20rem
+  // font-size: $font-size-headline
+  font-family: $headline-font-2
+  color: $white
+
+nav
+
+  div
+    height: 20rem
+    background-color: $lightblue
+
+
+#main-nav
+  perspective: 600px
+
+.nav-sec
+  transition-property: transform
+  transition-duration: 0.7s
+  transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+  // -webkit-box-reflect: below 15px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(#ff0000))
+
+.nav-sec:hover
+  transition-property: transform
+  transition-duration: 0.7s
+  transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 100, 1)
+
+footer
+  width: 100%
+  height: 15rem
+  background: $blue

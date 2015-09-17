@@ -2,11 +2,32 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css.map">
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="/javascripts/d3/d3.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular.js"></script>
+    <script type="text/javascript" src="/javascripts/angular/angular-route.js"></script>
+    <script type="text/javascript" src="/javascripts/angular-app.js"></script>
+    <script type="text/javascript" src="/javascripts/chart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Bangers|Audiowide|Bowlby+One+SC|Josefin+Slab|Kreon|Trocchi' rel='stylesheet' type='text/css'>
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <nav id="main-nav">
+      <div class="batting-link">
+
+      </div>
+      <div class="pitching-link">
+
+      </div>
+      <div class="fielding-link">
+
+      </div>
+    </nav>
     <div ng-view>
       This is the main index.ejs file
     </div>

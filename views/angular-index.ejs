@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/bootstrap.css">
     <link rel="stylesheet" href="/stylesheets/bootstrap.css.map">
@@ -12,15 +15,38 @@
     <script type="text/javascript" src="/javascripts/angular/angular-route.js"></script>
     <script type="text/javascript" src="/javascripts/angular-app.js"></script>
     <script type="text/javascript" src="/javascripts/chart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Bangers|Audiowide|Bowlby+One+SC|Josefin+Slab|Kreon|Trocchi' rel='stylesheet' type='text/css'>
   </head>
-  <body class="container" ng-app="agStats">
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-    THIS is the angular-INDEX-main page with all links and scripts
-    <a href="/angular/batting" target="_self">batting link</a>
-    <div ng-view>
+  <body ng-app="agStats">
+    <div class="container-fluid">
+        <header class="row">
+          <h1 class="text-center"><%= title %></h1>
+          <p>Welcome to <%= title %></p>
+        </header>
+
+
+
+        <nav id="main-nav" class="row">
+          <a href="/angular/batting">
+            <img ng-src="/images/baseball-batting.svg" alt="fielding" class="nav-sec batting-link col-sm-3 col-md-2 col-md-offset-2"/>
+            <!-- <div class="nav-sec batting-link col-sm-3 col-md-2 col-md-offset-2"></div> -->
+          </a>
+          <a href="/angular/pitching">
+            <img ng-src="/images/baseball-pitching.svg" alt="fielding" class="nav-sec pitching-link col-sm-3 col-md-2 col-md-offset-1"/>
+            <!-- <div class="nav-sec pitching-link col-sm-3 col-md-2 col-md-offset-1"></div> -->
+          </a>
+          <a href="/angular/fielding">
+            <img ng-src="/images/baseball-fielding.svg" alt="fielding" class="nav-sec fielding-link col-sm-3 col-md-2 col-md-offset-1"/>
+            <!-- <div class="nav-sec fielding-link col-sm-3 col-md-2 col-md-offset-1"></div> -->
+          </a>
+        </nav>
+
+        <div ng-view>
+
+        </div>
+
+        <footer class="row">&copy; 2015 Myron Johnson</footer>
 
     </div>
-
   </body>
 </html>
