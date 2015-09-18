@@ -45,17 +45,16 @@ app.use('/', controllers);
 // }
 
 // API Commented out for testing
-app.get('/api', function(req, res, next) {
+app.get('/api/batting', function(req, res, next) {
   models.Batting.hasOne(models.Master, {foreignKey : 'playerID'});
   models.Master.hasMany(models.Batting, {foreignKey : 'playerID'});
-  var masters = models.Batting.findAll({
+  var batting = models.Batting.findAll({
     where: {
         HR: { $gt: 10 }
       }
     }
-  ).then(function(masters) {
-    // JSON.stringify(masters);
-    res.json(masters);
+  ).then(function(batting) {
+    res.json(batting);
     res.end;
   });
 });

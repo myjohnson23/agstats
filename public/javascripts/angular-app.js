@@ -51,7 +51,7 @@ app.controller('agStatsController', ["$scope", "d3", "SimpleHttpLoader", functio
     $scope.sortReverse = true; // default sort order
     $scope.searchFilter = '';   // default search/filter term
     $scope.players = {
-      src: '/api',
+      src: '/api/batting',
       data: []
     };
 
