@@ -56,7 +56,7 @@ app.controller('agStatsController', ["$scope", "d3", "SimpleHttpLoader", functio
     };
 
     SimpleHttpLoader($scope.players.src).then(function(response) {
-      $scope.players.data = response.data.slice(0,11);
+      $scope.players.data = response.data;
       // console.log($scope.players);
       //This below is how I was able to access the data
       // console.log($scope.players.data[0].HR);
@@ -140,7 +140,7 @@ app.directive('myScatterChart', [ "d3", "$window", function(d3, $window, data) {
             $window.onresize = function() {
             };
 
-          var height = 500;
+          var height = $window.innerHeight;
           var width = $window.innerWidth;
           return function(scope, element, attrs) {
 
@@ -245,7 +245,8 @@ app.directive('myBarChart', ["d3", "$window", function(d3, $window, data) {
 
            /* ---- Draw bars ---- */
 
-          var barWidth = (width-2*margin)/data.length;
+          // var barWidth = (width-2*margin)/data.length;
+          var barWidth = 5;
 
           svg.select('.data')
             .selectAll('rect').data(data)
@@ -256,7 +257,8 @@ app.directive('myBarChart', ["d3", "$window", function(d3, $window, data) {
           var easing = d3.ease('cubic');
           var ease_type = 'cubic';
           var max = d3.max(data, function(d){ return d.AB; });
-          var duration = 2500;
+          // var duration = 2500;
+          var duration = 250;
 
           svg.select('.data')
             .selectAll('rect').data(data)
@@ -302,7 +304,7 @@ app.directive('myBarChart', ["d3", "$window", function(d3, $window, data) {
 
             // Define the dimensions for the chart
             // var width = 960, height = 500;
-            var height = 500;
+            var height = $window.innerHeight;
             var width = $window.innerWidth;
             // Return the link function
             return function(scope, element, attrs) {

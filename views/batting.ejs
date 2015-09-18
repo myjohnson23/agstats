@@ -15,6 +15,18 @@
   </head>
   <body class="container-fluid" ng-app="agStats">
     <div ng-controller="agStatsController">
+      <div class="chart-menu-button">
+
+      </div>
+      <div class="chart-menu-wrapper">
+        <ul class="chart-menu-list">
+          <li class="chart-menu-item">x-axis</li>
+          <li class="chart-menu-item"><input type="button" name="name" value=""></li>
+          <li class="chart-menu-item">y-axis</li>
+          <li class="chart-menu-item"></li>
+          <li class="chart-menu-item"><input type="submit" value="Update">Update</li>
+        </ul>
+      </div>
       <my-scatter-chart class="chart"></my-scatter-chart>
       <my-bar-chart class="chart"></my-bar-chart>
       <div class="alert alert-info">
@@ -147,7 +159,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="player in players.data | orderBy:sortType:sortReverse | filter:sortPlayerName | limitTo:10" ng-model="players">
+          <tr ng-repeat="player in players.data | orderBy:sortType:sortReverse | filter:sortPlayerName" ng-model="players">
               <td>{{player.playerID}}</td>
               <td>{{player.yearID}}</td>
               <td>{{player.lgID}}</td>
