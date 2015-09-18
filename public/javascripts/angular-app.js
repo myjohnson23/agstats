@@ -47,19 +47,20 @@ app.factory('SimpleHttpLoader', ["$http", function($http) {
 
 // Controller
 app.controller('agStatsController', ["$scope", "d3", "SimpleHttpLoader", function($scope, d3, SimpleHttpLoader) {
+    $scope.players = {};
     $scope.sortType = 'HR'; // default sort type
     $scope.sortReverse = true; // default sort order
     $scope.searchFilter = '';   // default search/filter term
-    $scope.players = {
+    $scope.players.batting = {
       src: '/api/batting',
       data: []
     };
 
-    SimpleHttpLoader($scope.players.src).then(function(response) {
-      $scope.players.data = response.data;
+    SimpleHttpLoader($scope.players.batting.src).then(function(response) {
+      $scope.players.batting.data = response.data;
       // console.log($scope.players);
       //This below is how I was able to access the data
-      // console.log($scope.players.data[0].HR);
+      // console.log($scope.players.batting.data[0].HR);
     });
   }]);
 
@@ -145,36 +146,36 @@ app.directive('myScatterChart', [ "d3", "$window", function(d3, $window, data) {
           return function(scope, element, attrs) {
 
             scope.$watch(function(scope) {
-              // console.log(scope.players.data);
-              return scope.players.data },
+              // console.log(scope.players.batting.data);
+              return scope.players.batting.data },
 
               function(newVal, oldVal, scope) {
-                if (scope.players.data) {
-                  draw(svg, width, height, scope.players.data);
+                if (scope.players.batting.data) {
+                  draw(svg, width, height, scope.players.batting.data);
               }
 
             }, true);
 
-            // scope.render = function(scope.players.data) {
+            // scope.render = function(scope.players.batting.data) {
             //   svg.selectAll('*').remove();
             //
-            //   if(!scope.players.data) return;
+            //   if(!scope.players.batting.data) return;
             //
             //   var width = d3.select(element[0].node().offsetWidth -margin,
-            //     height = scope.players.data.length * ()
+            //     height = scope.players.batting.data.length * ()
             //     )
             // }
 
-            // scope.$watch('scope.players.data', function(newVals, oldVals) {
+            // scope.$watch('scope.players.batting.data', function(newVals, oldVals) {
             //   console.log("watch new and old");
             //   return draw(newVals);
             // }, false);
 
-            // console.log(scope.players.data);
+            // console.log(scope.players.batting.data);
             scope.$watch(function() {
               return width = $window.innerWidth;
             }, function() {
-                draw(svg, width, height, scope.players.data);
+                draw(svg, width, height, scope.players.batting.data);
             }, true);
           };
         }
@@ -311,20 +312,20 @@ app.directive('myBarChart', ["d3", "$window", function(d3, $window, data) {
 
               // Watch the data attribute of the scope
               scope.$watch(function(scope) {
-                // console.log(scope.players.data);
-                return scope.players.data },
+                // console.log(scope.players.batting.data);
+                return scope.players.batting.data },
 
                 function(newVal, oldVal, scope) {
 
                 // Update the chart
-                if (scope.players.data) {
-                  draw(svg, width, height, scope.players.data);
+                if (scope.players.batting.data) {
+                  draw(svg, width, height, scope.players.batting.data);
                 }
               }, true);
               scope.$watch(function(scope) {
                 return width = $window.innerWidth;
               }, function() {
-                  draw(svg, width, height, scope.players.data);
+                  draw(svg, width, height, scope.players.batting.data);
               }, true);
             };
           }
